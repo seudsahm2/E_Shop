@@ -1,0 +1,167 @@
+html {
+    scroll-behavior: smooth;
+}
+
+.highlight {
+    background-color: #f8f9fa; /* Light gray background */
+    transition: background-color 1s ease;
+}
+
+
+/* Profile Image Styling */
+.profile-img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+}
+
+/* Profile Name and Bio */
+.profile-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+.profile-bio {
+    font-size: 1rem;
+    color: #666;
+}
+
+/* Post Container Styling */
+.posts-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.single-post {
+    text-align: center;
+}
+.single-post img {
+    width: 100%;
+    max-width: 200px;
+    border-radius: 8px;
+}
+.single-post .post-title {
+    margin-top: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+/* Footer Styling */
+footer {
+    width: 100%;
+    position: relative;
+    bottom: 0;
+    background-color: #f8f9fa;
+    padding: 20px;
+    text-align: center;
+    border-top: 1px solid #ddd;
+}
+
+/* Responsive Behavior */
+@media (max-width: 575px) {
+    .profile-img {
+        margin: 0 auto;
+    }
+    .profile-links {
+        text-align: center;
+    }
+    .profile-links a {
+        margin-bottom: 10px;
+    }
+    footer {
+        padding: 10px;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+    /* Image at the Left Tip */
+    .text-md-start .profile-img {
+        margin-left: 0;
+        display: block;
+    }
+    /* Horizontal Links */
+    .profile-links {
+        justify-content: flex-start;
+    }
+    .row {
+        display: block; 
+        flex-direction: column;
+        align-items:center; 
+        justify-content: baseline;
+        /* flex-wrap: nowrap;  */
+    }
+}
+
+
+
+/* Profile Section Fix for Screens Above 768px */
+@media (min-width: 768px) {
+    .profile-content-area .row {
+        display: flex;
+        align-items: flex-start;
+    }
+}
+
+/* Profile Section Fix for 768px to 991px */
+@media (min-width: 768px) and (max-width: 1040px) {
+    .main-content-wrapper {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    .profile-content-area {
+        flex: 1;
+        padding-left: 20px; /* Space between sidebar and profile section */
+    }
+
+    .profile-img {
+        width: 120px;
+        margin-right: 20px;
+    }
+
+    .profile-bio {
+        margin-top: 10px;
+    }
+
+    .posts-container {
+        margin-top: 20px;
+    }
+}
+
+/* Profile Section Fix for 991px to 1040px */
+
+
+/* For Larger Screens Above 1040px */
+@media (min-width: 768px) {
+    .d-lg-flex {
+        display: flex !important;
+    }
+    .d-lg-none {
+        display: none !important;
+    }
+}
+
+/* Ensure the footer spans the full width */
+.footer_area {
+    width: 100%; /* Ensure full width */
+    margin: 0; /* Remove extra margins */
+    padding: 0; /* Remove extra paddings */
+    box-sizing: border-box; /* Include padding and borders in width/height */
+    background-color: #f8f9fa; /* Optional for visual clarity */
+}
+
+/* Fix the container to avoid shrinking */
+.footer_area .container {
+    max-width: 100%; /* Allow it to expand */
+    width: 100%; /* Full width */
+    padding: 0 15px; /* Adjust padding for spacing */
+}
+
+/* Remove extra spacing on small screens */
+@media (max-width: 378px) {
+    .footer_area .row {
+        flex-wrap: nowrap; /* Avoid wrapping */
+        margin: 0; /* Ensure alignment */
+    }
+}

@@ -57,4 +57,11 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    public function showShoppingProfile(Request $request)
+    {
+        $user = $request->user();
+        // Fetch user or other necessary data for the shopping profile page
+        return view('profile.activity.shopping-profile',['user' => $user]);  // Return the view for the shopping profile
+    }
 }
