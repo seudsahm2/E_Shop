@@ -79,7 +79,7 @@
                         <img src="{{ asset('img/bg-img/3.jpg') }}" alt="">
                         <div class="hover-content">
                             <div class="line"></div>
-                            <p>From $180</p>
+                            <p>From $181</p>
                             <h4>Modern Chair</h4>
                         </div>
                     </a>
@@ -114,6 +114,7 @@
                         </div>
                     </a>
                 </div>
+                
                 <div class="single-products-catagory clearfix">
                     <a href="{{ url('store/shop') }}">
                         <img src="{{ asset('img/bg-img/7.jpg') }}" alt="">
