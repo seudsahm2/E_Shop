@@ -53,99 +53,18 @@
         <!-- Product Categories Area Start -->
         <div class="products-catagories-area clearfix">
             <div class="amado-pro-catagory clearfix">
-                <!-- Repeatable Product Category Template -->
+                @foreach($products as $product)
                 <div class="single-products-catagory clearfix">
                     <a href="{{ url('store/shop') }}">
-                        <img src="{{ asset('img/bg-img/1.jpg') }}" alt="">
+                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
                         <div class="hover-content">
                             <div class="line"></div>
-                            <p>From $180</p>
-                            <h4>Modern Chair</h4>
+                            <p>From ${{ $product->price }}</p>
+                            <h4>{{ $product->name }}</h4>
                         </div>
                     </a>
                 </div>
-                <div class="single-products-catagory clearfix">
-                    <a href="{{ url('store/shop') }}">
-                        <img src="{{ asset('img/bg-img/2.jpg') }}" alt="">
-                        <div class="hover-content">
-                            <div class="line"></div>
-                            <p>From $180</p>
-                            <h4>Modern Chair</h4>
-                        </div>
-                    </a>
-                </div>
-                <div class="single-products-catagory clearfix">
-                    <a href="{{ url('store/shop') }}">
-                        <img src="{{ asset('img/bg-img/3.jpg') }}" alt="">
-                        <div class="hover-content">
-                            <div class="line"></div>
-                            <p>From $181</p>
-                            <h4>Modern Chair</h4>
-                        </div>
-                    </a>
-                </div>
-                <div class="single-products-catagory clearfix">
-                    <a href="{{ url('store/shop') }}">
-                        <img src="{{ asset('img/bg-img/4.jpg') }}" alt="">
-                        <div class="hover-content">
-                            <div class="line"></div>
-                            <p>From $180</p>
-                            <h4>Modern Chair</h4>
-                        </div>
-                    </a>
-                </div>
-                <div class="single-products-catagory clearfix">
-                    <a href="{{ url('store/shop') }}">
-                        <img src="{{ asset('img/bg-img/5.jpg') }}" alt="">
-                        <div class="hover-content">
-                            <div class="line"></div>
-                            <p>From $180</p>
-                            <h4>Modern Chair</h4>
-                        </div>
-                    </a>
-                </div>
-                <div class="single-products-catagory clearfix">
-                    <a href="{{ url('store/shop') }}">
-                        <img src="{{ asset('img/bg-img/6.jpg') }}" alt="">
-                        <div class="hover-content">
-                            <div class="line"></div>
-                            <p>From $180</p>
-                            <h4>Modern Chair</h4>
-                        </div>
-                    </a>
-                </div>
-                
-                <div class="single-products-catagory clearfix">
-                    <a href="{{ url('store/shop') }}">
-                        <img src="{{ asset('img/bg-img/7.jpg') }}" alt="">
-                        <div class="hover-content">
-                            <div class="line"></div>
-                            <p>From $180</p>
-                            <h4>Modern Chair</h4>
-                        </div>
-                    </a>
-                </div>
-                <div class="single-products-catagory clearfix">
-                    <a href="{{ url('store/shop') }}">
-                        <img src="{{ asset('img/bg-img/8.jpg') }}" alt="">
-                        <div class="hover-content">
-                            <div class="line"></div>
-                            <p>From $180</p>
-                            <h4>Modern Chair</h4>
-                        </div>
-                    </a>
-                </div>
-                <div class="single-products-catagory clearfix">
-                    <a href="{{ url('store/shop') }}">
-                        <img src="{{ asset('img/bg-img/9.jpg') }}" alt="">
-                        <div class="hover-content">
-                            <div class="line"></div>
-                            <p>From $180</p>
-                            <h4>Modern Chair</h4>
-                        </div>
-                    </a>
-                </div>
-                <!-- Add more products similarly -->
+                @endforeach
             </div>
         </div>
         <!-- Product Categories Area End -->
