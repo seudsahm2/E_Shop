@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\ProductDetailController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
@@ -30,9 +32,13 @@ Route::get('/shopping-profile', [ProfileController::class, 'showShoppingProfile'
 
 Route::get('/shop', [App\Http\Controllers\ShopController::class, 'index'])->name('shop');
 
-Route::get('/product-detail', [App\Http\Controllers\ProductDetailController::class, 'index'])->name('product');  // RESTFUL API Convension for detail view
+// Route::get('/product-detail', [App\Http\Controllers\ProductDetailController::class, 'index'])->name('product');  // RESTFUL API Convension for detail view
 
-Route::get('/cart', [App\Http\Controllers\CartController::class, 'index'])->name('cart');
+Route::get('/product/{id}', [ProductDetailController::class, 'show'])->name('product.show');
+
+Route::get('/cart', [CartController::class, 'viewCart'])->name('cart.view');
+
+Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
 
 Route::get('/checkout', [App\Http\Controllers\CheckoutController::class, 'index'])->name('checkout');
 
