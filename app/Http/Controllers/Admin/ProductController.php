@@ -35,6 +35,7 @@ class ProductController extends Controller
             'price' => 'required|numeric',
             'image' => 'required|image',
             'description' => 'nullable',
+            'quantity' => 'required|integer', // Validate quantity
         ]);
 
         $imagePath = $request->file('image')->store('products', 'public');
@@ -44,6 +45,7 @@ class ProductController extends Controller
             'price' => $request->price,
             'image' => $imagePath,
             'description' => $request->description,
+            'quantity' => $request->quantity, // Save quantity
         ]);
 
         return redirect()->route('admin.products.index')->with('success', 'Product created successfully.');

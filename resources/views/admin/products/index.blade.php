@@ -3,8 +3,12 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Title  -->
     <title>Admin - Product List</title>
+
     <link rel="stylesheet" href="{{ asset('css/admin/index.css') }}">
 </head>
 
@@ -23,6 +27,7 @@
                     <th>Name</th>
                     <th>Image</th>
                     <th>Price</th>
+                    <th>Quantity</th> <!-- Add Quantity Column -->
                     <th>Description</th>
                     <th>Actions</th>
                 </tr>
@@ -34,6 +39,7 @@
                     <td>{{ $product->name }}</td>
                     <td><img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" width="50"></td>
                     <td>${{ $product->price }}</td>
+                    <td>{{ $product->quantity }}</td> <!-- Display Quantity -->
                     <td>{{ $product->description }}</td>
                     <td>
                         <a href="{{ route('admin.products.edit', $product->id) }}" class="btn">Edit</a>
