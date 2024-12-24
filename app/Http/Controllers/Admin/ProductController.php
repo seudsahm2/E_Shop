@@ -5,21 +5,37 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
+    private function checkAdmin()
+    {
+        if (Auth::check() && Auth::user()->role !== 'admin') {
+            return redirect('/home');
+        }
+    }
     public function create()
     {
+        if ($redirect = $this->checkAdmin()) {
+            return $redirect;
+        }
+
         return view('admin.products.create');
     }
 
     public function store(Request $request)
     {
+        if ($redirect = $this->checkAdmin()) {
+            return $redirect;
+        }
+
         $request->validate([
             'name' => 'required',
             'price' => 'required|numeric',
             'image' => 'required|image',
             'description' => 'nullable',
+            'quantity' => 'required|integer', // Validate quantity
         ]);
 
         $imagePath = $request->file('image')->store('products', 'public');
@@ -29,6 +45,7 @@ class ProductController extends Controller
             'price' => $request->price,
             'image' => $imagePath,
             'description' => $request->description,
+            'quantity' => $request->quantity, // Save quantity
         ]);
 
         return redirect()->route('admin.products.index')->with('success', 'Product created successfully.');
@@ -36,6 +53,10 @@ class ProductController extends Controller
 
     public function index()
     {
+        if ($redirect = $this->checkAdmin()) {
+            return $redirect;
+        }
+
         $products = Product::all();
         return view('admin.products.index', compact('products'));
     }

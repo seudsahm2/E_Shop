@@ -15,6 +15,9 @@
     <!-- Core Style CSS -->
     <link rel="stylesheet" href="{{ asset('css/core-style.css') }}">
     <link rel="stylesheet" href="{{ asset('style.css') }}">
+
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 </head>
 
 <body>
@@ -106,14 +109,14 @@
                             </div>
 
                             <!-- Add to Cart Form -->
-                            <form class="cart clearfix" method="post" action="{{ route('cart.add', $product->id) }}">
+                            <form id="add-to-cart-form" class="cart clearfix" method="post" action="{{ route('cart.add', $product->id) }}">
                                 @csrf
                                 <div class="cart-btn d-flex mb-50">
                                     <p>Qty</p>
                                     <div class="quantity">
                                         <span class="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if(!isNaN(qty) && qty > 1) effect.value--;return false;"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
-                                        <input type="number" class="qty-text" id="qty" step="1" min="1" max="300" name="quantity" value="1">
-                                        <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if(!isNaN(qty)) effect.value++;return false;"><i class="fa fa-caret-up" aria-hidden="true"></i></span>
+                                        <input type="number" class="qty-text" id="qty" step="1" min="1" max="{{ $product->quantity }}" name="quantity" value="1">
+                                        <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if(!isNaN(qty) && qty < {{ $product->quantity }}) effect.value++; return false;"><i class="fa fa-caret-up" aria-hidden="true"></i></span>
                                     </div>
                                 </div>
                                 <button type="submit" name="addtocart" value="{{ $product->id }}" class="btn amado-btn">Add to cart</button>
@@ -137,6 +140,44 @@
     <script src="{{ asset('js/plugins.js') }}"></script>
     <script src="{{ asset('js/active.js') }}"></script>
 
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#add-to-cart-form').on('submit', function(event) {
+                event.preventDefault(); // Prevent the form from submitting normally
+
+                var formData = $(this).serialize(); // Serialize the form data
+
+                $.ajax({
+                    url: $(this).attr('action'),
+                    method: $(this).attr('method'),
+                    data: formData,
+                    success: function(response) {
+                        Swal.fire({
+                            title: 'Success!',
+                            text: response.success,
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        });
+
+                        // Update the cart item count
+                        $('#cart-item-count').text(response.cartItemCount);
+                        $('#mobile-cart-item-count').text(response.cartItemCount);
+                    },
+                    error: function(xhr, status, error) {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: xhr.responseJSON.error,
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
