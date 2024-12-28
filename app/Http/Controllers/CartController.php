@@ -114,6 +114,8 @@ class CartController extends Controller
         $cart = Cart::where('user_id', Auth::id())->first();
         if ($cart) {
             $cart->items()->delete();
+            $cart->delivery_fee = 0; // Reset the delivery fee
+            $cart->save();
         }
 
         return redirect()->route('cart.view');

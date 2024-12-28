@@ -40,10 +40,8 @@ Route::get('/cart', [CartController::class, 'viewCart'])->name('cart.view');
 Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
 Route::post('/cart/update/{id}', [CartController::class, 'updateQuantity'])->name('cart.updateQuantity');
 Route::get('/cart/remove/{id}', [CartController::class, 'removeItem'])->name('cart.remove');
-Route::get('/cart/clear', [CartController::class, 'clearCart'])->name('cart.clear');
+Route::post('/cart/clear', [CartController::class, 'clearCart'])->name('cart.clear');
 Route::delete('/cart/remove/{id}', [CartController::class, 'removeItem'])->name('cart.remove');
-
-Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
 
 Route::get('/checkout', [App\Http\Controllers\CheckoutController::class, 'index'])->name('checkout');
 

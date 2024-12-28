@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\User;
 
-
+use League\ISO3166\ISO3166;
 
 class ProfileController extends Controller
 {
@@ -19,7 +19,16 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
-        return view('profile.edit', [
+        $iso3166 = new ISO3166();
+        $countries = $iso3166->all();
+
+        // Extract country codes and names
+        $countryList = [];
+        foreach ($countries as $country) {
+            $countryList[$country['alpha2']] = $country['name'];
+        }
+
+        return view('profile.edit', compact('countryList'), [
             'user' => $request->user(),
             'profile' => $request->user()->profile,
         ]);
@@ -31,24 +40,20 @@ class ProfileController extends Controller
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         $user = $request->user();
-        // $request->user()->fill($request->validated());
 
-        // if ($request->user()->isDirty('email')) {
-        //     $request->user()->email_verified_at = null;
-        // }
-        $user->fill($request->only(['name','email']));
+        // Update user information
+        $user->fill($request->validated());
 
-        if($user->isDirty('email'))
-        {
+        if ($user->isDirty('email')) {
             $user->email_verified_at = null;
         }
 
         $user->save();
-        
+
+        // Update or create profile information
         $user->profile()->updateOrCreate(
             ['user_id' => $user->id],
             $request->only(['company_name', 'country', 'address', 'town', 'zipcode', 'phone_number'])
-
         );
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
@@ -81,6 +86,4 @@ class ProfileController extends Controller
         // Fetch user or other necessary data for the shopping profile page
         return view('profile.activity.shopping-profile', ['user' => $user]);  // Return the view for the shopping profile
     }
-
-
 }

@@ -8,6 +8,7 @@ class ShopController extends Controller
 {
     public function index()
     {
-        return view('store.shop');
+        $cartItemCount = $this->getCartItemCount();
+        return view('store.shop',compact('cartItemCount'));
     }
 }

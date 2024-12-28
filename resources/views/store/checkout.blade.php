@@ -16,6 +16,9 @@
     <!-- Core Style CSS -->
     <link rel="stylesheet" href="{{ asset('css/core-style.css') }}">
     <link rel="stylesheet" href="{{ asset('style.css') }}">
+
+    <!-- Include Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -42,15 +45,10 @@
     <!-- Main Content Wrapper Start -->
     <div class="main-content-wrapper d-flex clearfix">
         <!-- Mobile Nav (max width 767px)-->
-
         @include('layouts.mobile_header')
 
         <!-- Header Area Start -->
-
         @include('layouts.header')
-        
-        <!-- Header Area End -->
-
         <!-- Header Area End -->
 
         <div class="cart-table-area section-padding-100">
@@ -63,64 +61,98 @@
                             </div>
                             <form action="#" method="post">
                                 <div class="row">
-                                    <!-- Customer details fields -->
+                                    <!-- First Name -->
                                     <div class="col-md-6 mb-3">
-                                        <input type="text" class="form-control" id="first_name" placeholder="First Name" required>
+                                        <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name"
+                                            value="{{ old('first_name', $user->first_name ?? '') }}" required>
                                     </div>
+
+                                    <!-- Last Name -->
                                     <div class="col-md-6 mb-3">
-                                        <input type="text" class="form-control" id="last_name" placeholder="Last Name" required>
+                                        <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name"
+                                            value="{{ old('last_name', $user->last_name ?? '') }}" required>
                                     </div>
+
+                                    <!-- Company Name -->
                                     <div class="col-12 mb-3">
-                                        <input type="text" class="form-control" id="company" placeholder="Company Name">
+                                        <input type="text" class="form-control" id="company" name="company_name" placeholder="Company Name"
+                                            value="{{ old('company_name', $profile->company_name ?? '') }}">
                                     </div>
+
+                                    <!-- Email -->
                                     <div class="col-12 mb-3">
-                                        <input type="email" class="form-control" id="email" placeholder="Email">
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="Email"
+                                            value="{{ old('email', $user->email ?? '') }}">
                                     </div>
+
+                                    <!-- Country -->
                                     <div class="col-12 mb-3">
-                                        <select class="w-100" id="country">
-                                            <option value="usa">United States</option>
-                                            <option value="uk">United Kingdom</option>
-                                            <!-- Add other countries here -->
+                                        <select class="form-control" id="country" name="country">
+                                            @foreach($countryList as $countryCode => $countryName)
+                                            <option value="{{ $countryCode }}"
+                                                {{ old('country', $profile->country ?? '') == $countryCode ? 'selected' : '' }}>
+                                                {{ e($countryName) }} <!-- Apply htmlspecialchars to ensure proper escaping -->
+                                            </option>
+                                            @endforeach
                                         </select>
                                     </div>
+
+
+                                    <!-- Address -->
                                     <div class="col-12 mb-3">
-                                        <input type="text" class="form-control mb-3" id="street_address" placeholder="Address">
+                                        <input type="text" class="form-control" id="street_address" name="address" placeholder="Address"
+                                            value="{{ old('address', $profile->address ?? '') }}">
                                     </div>
+
+                                    <!-- City -->
                                     <div class="col-12 mb-3">
-                                        <input type="text" class="form-control" id="city" placeholder="Town">
+                                        <input type="text" class="form-control" id="city" name="town" placeholder="Town"
+                                            value="{{ old('town', $profile->town ?? '') }}">
                                     </div>
+
+                                    <!-- Zip Code -->
                                     <div class="col-md-6 mb-3">
-                                        <input type="text" class="form-control" id="zipCode" placeholder="Zip Code">
+                                        <input type="text" class="form-control" id="zipCode" name="zipcode" placeholder="Zip Code"
+                                            value="{{ old('zipcode', $profile->zipcode ?? '') }}">
                                     </div>
+
+                                    <!-- Phone Number -->
                                     <div class="col-md-6 mb-3">
-                                        <input type="number" class="form-control" id="phone_number" placeholder="Phone No">
+                                        <input type="number" class="form-control" id="phone_number" name="phone_number" placeholder="Phone No"
+                                            value="{{ old('phone_number', $profile->phone_number ?? '') }}">
                                     </div>
+
+                                    <!-- Comment -->
                                     <div class="col-12 mb-3">
-                                        <textarea name="comment" class="form-control w-100" id="comment" cols="30" rows="10" placeholder="Leave a comment about your order"></textarea>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="custom-control custom-checkbox d-block mb-2">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck2">
-                                            <label class="custom-control-label" for="customCheck2">Create an account</label>
-                                        </div>
-                                        <div class="custom-control custom-checkbox d-block">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck3">
-                                            <label class="custom-control-label" for="customCheck3">Ship to a different address</label>
-                                        </div>
+                                        <textarea name="comment" class="form-control w-100" id="comment" cols="30" rows="10" placeholder="Leave a comment about your order">{{ old('comment') }}</textarea>
                                     </div>
                                 </div>
                             </form>
                         </div>
                     </div>
 
-                    <!-- Cart Summary Section -->
                     <div class="col-12 col-lg-4">
+                        <!-- Cart Summary -->
                         <div class="cart-summary">
                             <h5>Cart Total</h5>
                             <ul class="summary-table">
-                                <li><span>subtotal:</span> <span>$140.00</span></li>
-                                <li><span>delivery:</span> <span>Free</span></li>
-                                <li><span>total:</span> <span>$140.00</span></li>
+                                <li><span>Subtotal:</span>
+                                    <span id="cart-subtotal">
+                                        ${{ number_format($cart->items->sum(function ($item) {
+                                            return $item->product->price * $item->quantity;
+                                        }), 2) }}
+                                    </span>
+                                </li>
+                                <li><span>Delivery:</span>
+                                    <span id="cart-delivery">${{ number_format($cart->delivery_fee, 2) }}</span>
+                                </li>
+                                <li><span>Total:</span>
+                                    <span id="cart-total">
+                                        ${{ number_format($cart->items->sum(function ($item) {
+                                            return $item->product->price * $item->quantity;
+                                        }) + $cart->delivery_fee, 2) }}
+                                    </span>
+                                </li>
                             </ul>
                             <div class="payment-method">
                                 <div class="custom-control custom-checkbox mr-sm-2">
@@ -133,7 +165,7 @@
                                 </div>
                             </div>
                             <div class="cart-btn mt-100">
-                                <a href="#" class="btn amado-btn w-100">Checkout</a>
+                                <a href="{{ route('checkout') }}" class="btn amado-btn w-100">Checkout</a>
                             </div>
                         </div>
                     </div>
@@ -166,9 +198,7 @@
     <!-- Newsletter Area End -->
 
     <!-- Footer Area Start -->
-
     @include('layouts.footer')
-
     <!-- Footer Area End -->
 
     <!-- Scripts -->
@@ -177,6 +207,15 @@
     <script src="{{ asset('js/bootstrap/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/plugins.js') }}"></script>
     <script src="{{ asset('js/active.js') }}"></script>
+
+    <!-- Include Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.nice-select').hide();
+            $('#country').select2();
+        });
+    </script>
 </body>
 
 </html>
