@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('first_name');
-            $table->dropColumn('last_name');
+        Schema::create('colors', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->unique();
+            $table->string('hex_code', 7)->unique();
+            $table->timestamps();
         });
     }
 
@@ -22,9 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('first_name')->nullable();
-            $table->string('last_name')->nullable();
-        });
+        Schema::dropIfExists('colors');
     }
 };

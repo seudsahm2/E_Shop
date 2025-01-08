@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductDetailController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\ManagementController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,6 +26,16 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
     Route::resource('products', ProductController::class);
 });
+
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('management', [ManagementController::class, 'index'])->name('management.index');
+    Route::post('management', [ManagementController::class, 'store'])->name('management.store');
+    Route::get('management/{type}/{id}/edit', [ManagementController::class, 'edit'])->name('management.edit');
+    Route::put('management/{type}/{id}', [ManagementController::class, 'update'])->name('management.update');
+    Route::delete('management/{type}/{id}', [ManagementController::class, 'destroy'])->name('management.destroy');
+});
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
