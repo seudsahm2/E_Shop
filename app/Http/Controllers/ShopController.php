@@ -15,30 +15,33 @@ class ShopController extends Controller
         $categories = Category::all();
         $brands = Brand::all();
         $colors = Color::all();
+        $cartItemCount = $this->getCartItemCount();
 
         $products = Product::query();
-        $cartItemCount = $this->getCartItemCount();
+
+        // Calculate the minimum and maximum prices
+        $minPrice = Product::min('price');
+        $maxPrice = Product::max('price');
 
         if ($request->has('category')) {
             $products->where('category_id', $request->category);
         }
 
-        if ($request->has('brand')) {
-            $products->where('brand_id', $request->brand);
+        if ($request->has('brands')) {
+            $products->whereIn('brand_id', $request->brands);
         }
-
         if ($request->has('colors')) {
             $products->whereHas('colors', function ($query) use ($request) {
-                $query->whereIn('id', $request->colors);
+                $query->whereIn('colors.id', $request->colors);
             });
         }
 
-        if ($request->has('price')) {
-            $products->where('price', '<=', $request->price);
+        if ($request->has('price_min') && $request->has('price_max')) {
+            $products->whereBetween('price', [$request->price_min, $request->price_max]);
         }
 
         $products = $products->paginate(12);
 
-        return view('store.shop', compact('products', 'categories', 'brands', 'colors', 'cartItemCount'));
+        return view('store.shop', compact('products', 'categories', 'brands', 'colors', 'cartItemCount', 'minPrice', 'maxPrice'));
     }
 }

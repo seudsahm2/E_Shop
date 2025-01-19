@@ -46,7 +46,9 @@
                                         <i class="fa fa-star-o" aria-hidden="true"></i>
                                     </div>
                                     <div class="cart">
-                                        <a href="{{ route('cart.add', $product->id) }}" data-toggle="tooltip" data-placement="left" title="Add to Cart"><img src="{{ asset('img/core-img/cart.png') }}" alt=""></a>
+                                        <a href="#" class="add-to-cart-btn" data-id="{{ $product->id }}" data-quantity="1" data-url="{{ route('cart.add', $product->id) }}" data-token="{{ csrf_token() }}">
+                                            <img src="{{ asset('img/core-img/cart.png') }}" alt="Add to Cart">
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -106,6 +108,45 @@
     <script src="{{ asset('js/plugins.js') }}"></script>
     <!-- Active js -->
     <script src="{{ asset('js/active.js') }}"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+
+            addToCartButtons.forEach(function(button) {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    var productId = this.getAttribute('data-id');
+                    var quantity = this.getAttribute('data-quantity');
+                    var url = this.getAttribute('data-url');
+                    var token = this.getAttribute('data-token');
+
+                    var formData = new FormData();
+                    formData.append('_token', token);
+                    formData.append('quantity', quantity);
+
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', url, true);
+
+                    xhr.setRequestHeader('X-CSRF-TOKEN', token);
+
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState == 4 && xhr.status == 200) {
+                            var response = JSON.parse(xhr.responseText);
+
+                            if (response.message) {
+                                alert(response.message);
+                            }
+                        } else if (xhr.readyState == 4) {
+                            alert("Failed to add product to cart");
+                        }
+                    };
+                    xhr.send(formData);
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
