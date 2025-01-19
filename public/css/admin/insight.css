@@ -1,0 +1,160 @@
+/* Global Styles */
+body {
+    background-color: #f4f7fc;
+    font-family: "Arial", sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h2 {
+    text-align: center;
+    font-size: 2rem;
+    color: #333;
+}
+
+/* Sales Stats Section */
+.sales-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.stat-item {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.stat-item h3 {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffcc00;
+}
+
+/* Sales Graph Section */
+.sales-graph-section {
+    margin-top: 40px;
+    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.sales-graph {
+    margin-top: 20px;
+    border: 2px dashed #ffcc00;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+}
+
+.refresh-btn {
+    padding: 10px 20px;
+    background-color: #ffcc00;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.refresh-btn:hover {
+    background-color: #ff9900;
+}
+
+/* Sales Insights Table */
+.sales-insights-table {
+    margin-top: 40px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.insights-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1rem;
+}
+
+.insights-table th,
+.insights-table td {
+    padding: 12px;
+    text-align: left;
+}
+
+.insights-table th {
+    background-color: #ffcc00;
+    color: white;
+    font-weight: bold;
+}
+
+.insights-table tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+.btn {
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.edit-btn {
+    background-color: #ffcc00;
+    border: none;
+    color: black;
+}
+
+.edit-btn:hover {
+    background-color: #ff9900;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    border: none;
+    color: white;
+    margin-left: 10px;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .sales-stats {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .sales-graph-section {
+        padding: 15px;
+    }
+
+    .insights-table th, .insights-table td {
+        font-size: 0.9rem;
+    }
+
+    .btn {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+    }
+}

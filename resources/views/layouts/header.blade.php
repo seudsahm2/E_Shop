@@ -36,7 +36,7 @@
                     <x-slot name="trigger">
                         <button class="flex items-center px-2 py-1 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
                             <!-- Username -->
-                            <div class="truncate">{{ Auth::user()->username }}</div>
+                            
                             <!-- Dropdown Arrow -->
                             <svg class="ms-2 h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -70,7 +70,7 @@
                     <li><a href="{{ url('/home') }}">Home</a></li>
                     <li class="active"><a href="{{ url('/shop') }}">Shop</a></li>
                     <li><a href="{{ url('/product-detail') }}">Product</a></li>
-                    <li><a href="{{ url('/cart') }}">Cart <span id="mobile-cart-item-count">{{ $cartItemCount }}</span></a></li>
+                    <li><a href="{{ url('/cart') }}">Cart <span class="cart-item-count">{{ $cartItemCount }}</span></a></li>
                     <li><a href="{{ url('/checkout') }}">Checkout</a></li>
                 </ul>
             </nav>

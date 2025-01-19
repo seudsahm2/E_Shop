@@ -79,3 +79,85 @@ form button:hover {
     background-color: #000; /* Black background on hover */
     color: #ffcc00; /* Yellow text */
 }
+
+/* Existing styles */
+form button {
+    background-color: #ffcc00; /* Yellow button background */
+    color: #000; /* Black text */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #000; /* Black background on hover */
+    color: #ffcc00; /* Yellow text */
+}
+
+/* New styles for category, brand, and color fields */
+.category-field,
+.brand-field,
+.color-field {
+    margin-bottom: 15px;
+}
+
+.category-field label,
+.brand-field label,
+.color-field label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.category-field select,
+.brand-field select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+}
+
+.category-field select:focus,
+.brand-field select:focus {
+    border-color: #ffcc00; /* Yellow border on focus */
+    outline: none;
+}
+.color-field select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+    appearance: none; /* Remove default dropdown arrow */
+    -webkit-appearance: none; /* Remove default dropdown arrow for Safari */
+    -moz-appearance: none; /* Remove default dropdown arrow for Firefox */
+    background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23333" d="M2 0L0 2h4z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 10px;
+}
+
+.color-field select:focus {
+    border-color: #ffcc00; /* Yellow border on focus */
+    outline: none;
+}
+
+.color-field option {
+    padding: 10px;
+    background-color: #fff;
+    color: #333;
+}
+
+.color-field option:hover {
+    background-color: #f0f0f0;
+}
+
+.color-field option[selected] {
+    background-color: #ffcc00;
+    color: #fff;
+}

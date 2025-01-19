@@ -7,7 +7,6 @@ html {
     transition: background-color 1s ease;
 }
 
-
 /* Profile Image Styling */
 .profile-img {
     width: 120px;
@@ -24,6 +23,51 @@ html {
 .profile-bio {
     font-size: 1rem;
     color: #666;
+}
+
+.cart-item-count {
+    background-color: #ff6f61;
+    color: #fff;
+    border-radius: 50%;
+    padding: 2px 8px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-left: 5px;
+    display: inline-block;
+    min-width: 20px;
+    text-align: center;
+    line-height: 1.5;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.cart-item-count:hover {
+    background-color: #e55b50;
+    transform: scale(1.1);
+}
+
+.cart-item-count::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 10px;
+    height: 10px;
+    background-color: #ff6f61;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.cart-item-count::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: -5px;
+    width: 10px;
+    height: 10px;
+    background-color: #ff6f61;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 /* Post Container Styling */
@@ -46,6 +90,35 @@ html {
     font-weight: bold;
 }
 
+.color-checkbox {
+    display: inline-block;
+    margin: 5px;
+}
+
+.color-checkbox input[type="checkbox"] {
+    display: none;
+}
+
+.color-checkbox label {
+    width: 30px; /* Increase the size */
+    height: 30px; /* Increase the size */
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.color-checkbox input[type="checkbox"]:checked + label {
+    border: 3px solid #000; /* Increase the border size for checked state */
+}
+
+/* Ensure the colors are displayed in rows of three */
+.widget.color .widget-desc {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
 /* Footer Styling */
 footer {
     width: 100%;
@@ -84,15 +157,13 @@ footer {
         justify-content: flex-start;
     }
     .row {
-        display: block; 
+        display: block;
         flex-direction: column;
-        align-items:center; 
+        align-items: center;
         justify-content: baseline;
         /* flex-wrap: nowrap;  */
     }
 }
-
-
 
 /* Profile Section Fix for Screens Above 768px */
 @media (min-width: 768px) {
@@ -130,7 +201,6 @@ footer {
 }
 
 /* Profile Section Fix for 991px to 1040px */
-
 
 /* For Larger Screens Above 1040px */
 @media (min-width: 768px) {

@@ -6,6 +6,7 @@
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Title  -->
     <title>Amado - Furniture Ecommerce Template | {{ $product->name }}</title>
 
@@ -114,9 +115,19 @@
                                 <div class="cart-btn d-flex mb-50">
                                     <p>Qty</p>
                                     <div class="quantity">
-                                        <span class="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if(!isNaN(qty) && qty > 1) effect.value--;return false;"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
-                                        <input type="number" class="qty-text" id="qty" step="1" min="1" max="{{ $product->quantity }}" name="quantity" value="1">
-                                        <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if(!isNaN(qty) && qty < {{ $product->quantity }}) effect.value++; return false;"><i class="fa fa-caret-up" aria-hidden="true"></i></span>
+                                        <span class="qty-minus" onclick="var effect = document.getElementById('qty'); 
+                                            var qty = effect.value; 
+                                                if(!isNaN(qty) && qty > 1) 
+                                                    effect.value--;
+                                                    return false;">
+                                            <i class="fa fa-caret-down" aria-hidden="true"></i>
+                                        </span>
+
+                                        <input type="number" class="qty-text" id="qty" step="1"
+                                            min="1" max="{{ $product->quantity }}" name="quantity" value="1">
+                                        <span class="qty-plus" onclick="var effect = document.getElementById('qty'); 
+                                        var qty = effect.value; if(!isNaN(qty) && qty < {{ $product->quantity }}) effect.value++; return false;">
+                                            <i class="fa fa-caret-up" aria-hidden="true"></i></span>
                                     </div>
                                 </div>
                                 <button type="submit" name="addtocart" value="{{ $product->id }}" class="btn amado-btn">Add to cart</button>
@@ -144,39 +155,43 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
-        $(document).ready(function() {
-            $('#add-to-cart-form').on('submit', function(event) {
-                event.preventDefault(); // Prevent the form from submitting normally
+        document.getElementById('add-to-cart-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var form = this;
+            var formData = new FormData(form);
 
-                var formData = $(this).serialize(); // Serialize the form data
+            var actionurl = form.getAttribute('action');
+            // console.log(form);
+            // foreach(formData as value => data) {
+            //     console.log(value, " ", data);
+            //     console.log(formData.get('quantity'));
+            // }
 
-                $.ajax({
-                    url: $(this).attr('action'),
-                    method: $(this).attr('method'),
-                    data: formData,
-                    success: function(response) {
-                        Swal.fire({
-                            title: 'Success!',
-                            text: response.success,
-                            icon: 'success',
-                            confirmButtonText: 'OK'
-                        });
+            // console.log(actionurl);
 
-                        // Update the cart item count
-                        $('#cart-item-count').text(response.cartItemCount);
-                        $('#mobile-cart-item-count').text(response.cartItemCount);
-                    },
-                    error: function(xhr, status, error) {
-                        Swal.fire({
-                            title: 'Error!',
-                            text: xhr.responseJSON.error,
-                            icon: 'error',
-                            confirmButtonText: 'OK'
-                        });
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', actionurl, true);
+
+            xhr.setRequestHeader('X-CSRF-TOKEN',
+                document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            );
+
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var response = JSON.parse(xhr.responseText);
+
+                    if (response.message) {
+                        alert(response.message);
                     }
-                });
-            });
-        });
+                } else if (xhr.readyState == 4) {
+                    alert("failed to add product to cart");
+                }
+
+            };
+            xhr.send(formData);
+
+        })
     </script>
 </body>
 

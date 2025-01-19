@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - Sales Insights</title>
+    <link rel="stylesheet" href="insight.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header class="page-header">
+        <h2>Sales Insights</h2>
+      </header>
+
+      <!-- Sales Statistics Section -->
+      <section class="sales-stats">
+        <div class="stat-item">
+          <h3>Total Sales</h3>
+          <p class="stat-value">$1,250,000</p>
+        </div>
+        <div class="stat-item">
+          <h3>Orders Today</h3>
+          <p class="stat-value">234</p>
+        </div>
+        <div class="stat-item">
+          <h3>Top Selling Product</h3>
+          <p class="stat-value">Product A</p>
+        </div>
+        <div class="stat-item">
+          <h3>Pending Orders</h3>
+          <p class="stat-value">12</p>
+        </div>
+      </section>
+
+      <!-- Sales Graph Section -->
+      <section class="sales-graph-section">
+        <h3>Sales Over Time</h3>
+        <div id="sales-graph" class="sales-graph">
+          <p>This is where the sales graph would be displayed.</p>
+          <button class="btn refresh-btn" onclick="refreshGraph()">
+            Refresh Graph
+          </button>
+        </div>
+      </section>
+
+      <!-- Sales Insights Table -->
+      <section class="sales-insights-table">
+        <table class="insights-table">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Sales</th>
+              <th>Profit</th>
+              <th>Orders</th>
+              <th>Region</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Product A</td>
+              <td>$500,000</td>
+              <td>$150,000</td>
+              <td>120</td>
+              <td>North</td>
+            </tr>
+            <tr>
+              <td>Product B</td>
+              <td>$400,000</td>
+              <td>$120,000</td>
+              <td>100</td>
+              <td>South</td>
+            </tr>
+            <tr>
+              <td>Product C</td>
+              <td>$350,000</td>
+              <td>$100,000</td>
+              <td>80</td>
+              <td>East</td>
+            </tr>
+            <tr>
+              <td>Product D</td>
+              <td>$300,000</td>
+              <td>$90,000</td>
+              <td>70</td>
+              <td>West</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+
+    <script src="insight.js"></script>
+  </body>
+</html>

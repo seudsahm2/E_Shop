@@ -1,0 +1,198 @@
+
+body {
+  background-color: #ffffff;
+  color: #000;
+  font-family: "Arial", sans-serif;
+  animation: fadeIn 1s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+
+.sidebar {
+  height: 100vh;
+  background-color: #000;
+  color: #fff;
+  padding: 15px;
+  position: fixed;
+  width: 250px;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 999;
+  transition: transform 0.3s ease;
+}
+
+.container-fluid {
+  margin-left: 250px; /* Ensure the main content has space for the sidebar */
+  padding-left: 15px;
+  transition: margin-left 0.3s ease;
+}
+
+.sidebar a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.sidebar a:hover {
+  background-color: #ffcc00;
+  color: #000;
+  transform: scale(1.05);
+}
+
+.dashboard-header {
+  animation: slideIn 1.2s;
+  color: #000;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Hide Sidebar on Small Screens */
+@media (max-width: 768px) {
+    .sidebar {
+    position: absolute;
+    transform: translateX(-100%);
+    }
+    .sidebar.open {
+    transform: translateX(0);
+    }
+    
+    .container-fluid {
+    margin-left: 0; /* Remove margin when sidebar is hidden */
+    }
+    }
+    
+    /* Adjust content width for large screens to avoid overlap */
+    @media (min-width: 768px) {
+    .container-fluid {
+    margin-left: 250px; /* Ensure content has space when sidebar is visible */
+    }
+    }
+
+.footer {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #000;
+}
+
+.chart-container {
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.chart-title {
+  text-align: center;
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #000;
+}
+
+/* Enhanced Summary Section */
+.summary-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 30px;
+  padding: 20px;
+}
+.summary-card {
+  width: 22%;
+  height: 200px;
+  background: linear-gradient(135deg, #ffcc00, #000);
+  color: #fff;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+}
+
+.summary-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.5);
+}
+
+.icon-container {
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.3),
+    rgba(0, 0, 0, 0)
+  );
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  box-shadow: inset 0 4px 10px rgba(255, 255, 255, 0.2);
+}
+
+.icon-container i {
+  font-size: 2.5rem;
+  color: #ffcc00;
+}
+
+.summary-card h3 {
+  margin: 10px 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.summary-card span {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1200px) {
+  .summary-card {
+    width: 30%; /* 3 cards per row on medium screens */
+  }
+}
+
+@media (max-width: 992px) {
+  .summary-card {
+    width: 45%; /* 2 cards per row on small screens */
+  }
+}
+
+@media (max-width: 576px) {
+  .summary-card {
+    width: 100%; /* 1 card per row on mobile devices */
+  }
+}
+
+/* Hide Sidebar on Small Screens */
+
+
+

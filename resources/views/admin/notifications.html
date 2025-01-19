@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - Notifications</title>
+    <link rel="stylesheet" href="notifications.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header class="page-header">
+        <h2>Notifications</h2>
+      </header>
+
+      <!-- Notification List Section -->
+      <section class="notifications-list">
+        <div class="notification-card">
+          <div class="notification-header">
+            <span class="notification-title">New Order Placed</span>
+            <span class="notification-time">2 hours ago</span>
+          </div>
+          <p class="notification-body">
+            A new order has been placed by the customer. Check the details.
+          </p>
+          <button class="btn mark-read-btn" onclick="markAsRead(this)">
+            Mark as Read
+          </button>
+        </div>
+
+        <div class="notification-card">
+          <div class="notification-header">
+            <span class="notification-title">Product Stock Low</span>
+            <span class="notification-time">5 hours ago</span>
+          </div>
+          <p class="notification-body">
+            The stock for 'Product A' is running low. Restock soon!
+          </p>
+          <button class="btn mark-read-btn" onclick="markAsRead(this)">
+            Mark as Read
+          </button>
+        </div>
+
+        <div class="notification-card">
+          <div class="notification-header">
+            <span class="notification-title">Payment Received</span>
+            <span class="notification-time">1 day ago</span>
+          </div>
+          <p class="notification-body">
+            Payment of $150 has been received from customer XYZ.
+          </p>
+          <button class="btn mark-read-btn" onclick="markAsRead(this)">
+            Mark as Read
+          </button>
+        </div>
+
+        <!-- More notifications can be added dynamically -->
+      </section>
+    </div>
+
+    <script src="notifications.js"></script>
+  </body>
+</html>

@@ -1,0 +1,122 @@
+/* Global Styles */
+body {
+    background-color: #f4f7fc;
+    font-family: "Arial", sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h2 {
+    text-align: center;
+    font-size: 2rem;
+    color: #333;
+}
+
+/* Users Table */
+.users-table-section {
+    margin-top: 30px;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.users-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1rem;
+}
+
+.users-table th,
+.users-table td {
+    padding: 12px;
+    text-align: left;
+}
+
+.users-table th {
+    background-color: #ffcc00;
+    color: white;
+    font-weight: bold;
+}
+
+.users-table tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+.user-status {
+    padding: 5px 10px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+}
+
+.status-active {
+    background-color: #28a745; /* Active color */
+}
+
+.status-inactive {
+    background-color: #dc3545; /* Inactive color */
+}
+
+.btn {
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.edit-btn {
+    background-color: #ffcc00;
+    border: none;
+    color: black;
+}
+
+.edit-btn:hover {
+    background-color: #ff9900;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    border: none;
+    color: white;
+    margin-left: 10px;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+}
+
+/* Add User Button */
+.add-btn {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease;
+}
+
+.add-btn:hover {
+    background-color: #218838;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .users-table th, .users-table td {
+        font-size: 0.9rem;
+    }
+
+    .btn {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+    }
+}

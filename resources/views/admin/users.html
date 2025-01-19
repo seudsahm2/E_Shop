@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - Manage Users</title>
+    <link rel="stylesheet" href="users.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header class="page-header">
+        <h2>User Management</h2>
+      </header>
+
+      <!-- User Table Section -->
+      <section class="users-table-section">
+        <table class="users-table">
+          <thead>
+            <tr>
+              <th>User ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>#1001</td>
+              <td>John Doe</td>
+              <td>johndoe@example.com</td>
+              <td>Admin</td>
+              <td><span class="user-status status-active">Active</span></td>
+              <td>
+                <button class="btn edit-btn" onclick="editUser(1001)">
+                  Edit
+                </button>
+                <button class="btn delete-btn" onclick="deleteUser(1001)">
+                  Delete
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td>#1002</td>
+              <td>Jane Smith</td>
+              <td>janesmith@example.com</td>
+              <td>Editor</td>
+              <td><span class="user-status status-inactive">Inactive</span></td>
+              <td>
+                <button class="btn edit-btn" onclick="editUser(1002)">
+                  Edit
+                </button>
+                <button class="btn delete-btn" onclick="deleteUser(1002)">
+                  Delete
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td>#1003</td>
+              <td>Samuel Green</td>
+              <td>samuelgreen@example.com</td>
+              <td>Viewer</td>
+              <td><span class="user-status status-active">Active</span></td>
+              <td>
+                <button class="btn edit-btn" onclick="editUser(1003)">
+                  Edit
+                </button>
+                <button class="btn delete-btn" onclick="deleteUser(1003)">
+                  Delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Add User Button -->
+      <section class="add-user-btn-section">
+        <button class="btn add-btn" onclick="addUser()">Add New User</button>
+      </section>
+    </div>
+
+    <script src="users.js"></script>
+  </body>
+</html>

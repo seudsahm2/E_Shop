@@ -10,6 +10,7 @@ class ProductDetailController extends Controller
     public function show($id)
     {
         $product = Product::findOrFail($id);
-        return view('store.product-detail', compact('product'));
+        $cartItemCount = $this->getCartItemCount();
+        return view('store.product-detail', compact('product', 'cartItemCount'));
     }
 }

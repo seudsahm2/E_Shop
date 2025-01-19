@@ -79,3 +79,18 @@ table tbody tr:hover {
     background-color: #000; /* Black background on hover */
     color: #ffcc00; /* Yellow text */
 }
+.color-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.color-list li {
+    width: 20px;
+    height: 20px;
+    margin: 5px;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+}
