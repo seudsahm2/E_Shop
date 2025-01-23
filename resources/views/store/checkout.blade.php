@@ -59,7 +59,8 @@
                             <div class="cart-title">
                                 <h2>Checkout</h2>
                             </div>
-                            <form action="#" method="post">
+                            <form action="{{ route('checkout.process')}}" method="post">
+                                @csrf
                                 <div class="row">
                                     <!-- First Name -->
                                     <div class="col-md-6 mb-3">
@@ -127,6 +128,19 @@
                                         <textarea name="comment" class="form-control w-100" id="comment" cols="30" rows="10" placeholder="Leave a comment about your order">{{ old('comment') }}</textarea>
                                     </div>
                                 </div>
+                                <div class="payment-method">
+                                    <div class="custom-control custom-radio mr-sm-2">
+                                        <input type="radio" class="custom-control-input" id="cod" name="payment_method" value="cod" checked>
+                                        <label class="custom-control-label" for="cod">Cash on Delivery</label>
+                                    </div>
+                                    <div class="custom-control custom-radio mr-sm-2">
+                                        <input type="radio" class="custom-control-input" id="paypal" name="payment_method" value="paypal">
+                                        <label class="custom-control-label" for="paypal">Paypal <img class="ml-15" src="{{ asset('img/core-img/paypal.png') }}" alt=""></label>
+                                    </div>
+                                </div>
+                                <div class="cart-btn mt-100">
+                                    <button type="submit" class="btn amado-btn w-100">Pay and Order</button>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -154,19 +168,6 @@
                                     </span>
                                 </li>
                             </ul>
-                            <div class="payment-method">
-                                <div class="custom-control custom-checkbox mr-sm-2">
-                                    <input type="checkbox" class="custom-control-input" id="cod" checked>
-                                    <label class="custom-control-label" for="cod">Cash on Delivery</label>
-                                </div>
-                                <div class="custom-control custom-checkbox mr-sm-2">
-                                    <input type="checkbox" class="custom-control-input" id="paypal">
-                                    <label class="custom-control-label" for="paypal">Paypal <img class="ml-15" src="{{ asset('img/core-img/paypal.png') }}" alt=""></label>
-                                </div>
-                            </div>
-                            <div class="cart-btn mt-100">
-                                <a href="{{ route('checkout') }}" class="btn amado-btn w-100">Checkout</a>
-                            </div>
                         </div>
                     </div>
                 </div>

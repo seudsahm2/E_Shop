@@ -2,14 +2,14 @@
 <x-slot name="header">
     <div class="flex justify-between items-center w-full max-w-2xl mx-auto">
         <!-- User Profile Link -->
-        <a href="/profile" 
+        <a href="profile" 
            class="text-gray-800 dark:text-gray-200 font-semibold text-xl hover:underline 
                   active:text-blue-500 focus:text-blue-500">
             {{ __('User Profile') }}
         </a>
 
         <!-- Shopping Profile Link -->
-        <a href="/shopping-profile" 
+        <a href="{{ route('shopping-profile') }}" 
            class="text-gray-800 dark:text-gray-200 font-semibold text-xl hover:underline 
                   active:text-blue-500 focus:text-blue-500">
             {{ __('Shopping Profile') }}

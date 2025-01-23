@@ -2,12 +2,14 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ProductDetailController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ManagementController;
 use App\Http\Controllers\Payment\MpesaController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\DashboardController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -17,17 +19,14 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// Authenticated Routes
-Route::middleware('auth')->group(function () {
-    // Profile Routes
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+
 
 // Admin Routes
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
     Route::resource('products', ProductController::class);
+
+
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Management Routes
     Route::prefix('management')->name('management.')->group(function () {
@@ -54,8 +53,18 @@ Route::prefix('cart')->name('cart.')->group(function () {
     Route::post('clear', [CartController::class, 'clearCart'])->name('clear');
 });
 
+
+// Authenticated Routes
+Route::middleware('auth')->group(function () {
+    // Profile Routes
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::post('/checkout/process', [CheckoutController::class, 'processCheckout'])->name('checkout.process');
+    Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
+});
 // Checkout Routes
-Route::get('/checkout', [App\Http\Controllers\CheckoutController::class, 'index'])->name('checkout');
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
 
 // API Routes
 // Route::prefix('api')->group(function () {

@@ -56,6 +56,11 @@
 
         <div class="cart-table-area section-padding-100">
             <div class="container-fluid">
+                @if($cart->items->isEmpty())
+                <div class="alert alert-info">
+                    No items available in the cart.
+                </div>
+                @else
                 <div class="row">
                     <div class="col-12 col-lg-8">
                         <div class="cart-title mt-50">
@@ -149,6 +154,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
             </div>
         </div>
 
