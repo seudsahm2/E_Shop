@@ -82,8 +82,11 @@ class ProfileController extends Controller
 
     public function showShoppingProfile(Request $request)
     {
+
         $user = $request->user();
+        $cartItemCount = $this->getCartItemCount();
         // Fetch user or other necessary data for the shopping profile page
-        return view('profile.activity.shopping-profile', ['user' => $user]);  // Return the view for the shopping profile
+        return view('profile.activity.shopping-profile', compact('user', 'cartItemCount'));  // Return the view for the shopping profile
+
     }
 }

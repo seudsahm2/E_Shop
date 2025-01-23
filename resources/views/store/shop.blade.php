@@ -10,6 +10,13 @@
 </head>
 
 <body>
+    @if(session('error'))
+    <div class="container mt-3">
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    </div>
+    @endif
     <!-- Main Content Wrapper Start -->
     <div class="main-content-wrapper d-flex clearfix">
         @include('layouts.mobile_header')
@@ -17,6 +24,7 @@
         <!-- Sidebar Area Start -->
         @include('layouts.sidebar')
         <!-- Sidebar Area End -->
+
 
         <!-- Product Area Start -->
         <div class="amado_product_area section-padding-100">
