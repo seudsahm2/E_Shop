@@ -10,6 +10,9 @@ use App\Http\Controllers\Payment\MpesaController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\InsightController;
+use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\UserController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -24,9 +27,14 @@ Route::get('/dashboard', function () {
 // Admin Routes
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
     Route::resource('products', ProductController::class);
-
+    Route::resource('orders', OrderController::class);
+    Route::resource('users', UserController::class);
+    Route::put('orders/{order}/update-status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+
+    Route::get('/insights', [InsightController::class, 'index'])->name('insights');
 
     // Management Routes
     Route::prefix('management')->name('management.')->group(function () {

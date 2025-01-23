@@ -71,6 +71,7 @@ class CheckoutController extends Controller
                     return $item->product->price * $item->quantity;
                 }) + $cart->delivery_fee,
                 'payment_method' => $request->payment_method,
+                'status' => 'pending', 
             ]);
 
             foreach ($cart->items as $item) {
