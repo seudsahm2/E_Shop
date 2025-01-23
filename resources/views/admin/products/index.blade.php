@@ -1,18 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="description" content="">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Title  -->
-    <title>Admin - Product List</title>
-
-    <link rel="stylesheet" href="{{ asset('css/admin/index.css') }}">
-</head>
-
-<body>
+@extends('layouts.admin')
+<link rel="stylesheet" href="{{ asset('css/admin/index.css') }}">
+@section('content')
     <div class="container">
         <h1>Products</h1>
         <!-- Add Product Button -->
@@ -26,6 +14,7 @@
                     <th>Name</th>
                     <th>Image</th>
                     <th>Price</th>
+                    <th>Cost</th>
                     <th>Quantity</th>
                     <th>Description</th>
                     <th>Category</th>
@@ -41,6 +30,7 @@
                     <td>{{ $product->name }}</td>
                     <td><img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" width="50"></td>
                     <td>${{ $product->price }}</td>
+                    <td>${{ $product->cost }}</td>
                     <td>{{ $product->quantity }}</td>
                     <td>{{ $product->description }}</td>
                     <td>{{ $product->category->name }}</td>
@@ -65,6 +55,4 @@
             </tbody>
         </table>
     </div>
-</body>
-
-</html>
+@endsection

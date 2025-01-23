@@ -1,5 +1,6 @@
 @extends('layouts.admin')
-
+<link rel="stylesheet" href="{{ asset('css/admin/dashboard.css') }}">
+    
 @section('content')
 <h1 class="mb-4 dashboard-header">Admin Dashboard</h1>
 

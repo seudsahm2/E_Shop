@@ -50,29 +50,47 @@ h2 {
     background-color: #f9f9f9;
 }
 
-.order-status {
-    padding: 5px 10px;
-    border-radius: 10px;
-    color: white;
-    font-weight: bold;
+
+
+.status-dropdown {
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    font-size: 14px;
+    color: #333;
+    width: 100%;
+    max-width: 150px;
+    margin: 0 auto;
+    display: block;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23333" d="M2 0L0 2h4zM2 5L0 3h4z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 10px;
 }
 
-.status-pending {
-    background-color: #f8b400; /* Pending color */
+.status-dropdown.pending {
+    background-color: #ffeb3b;
+    color: #333;
 }
 
-.status-shipped {
-    background-color: #28a745; /* Shipped color */
+.status-dropdown.shipped {
+    background-color: #4caf50;
+    color: #fff;
 }
 
-.status-delivered {
-    background-color: #007bff; /* Delivered color */
+.status-dropdown.delivered {
+    background-color: #2196f3;
+    color: #fff;
 }
 
-.status-canceled {
-    background-color: #dc3545; /* Canceled color */
+.status-dropdown.canceled {
+    background-color: #f44336;
+    color: #fff;
 }
-
 .view-btn {
     padding: 8px 16px;
     background-color: #ffcc00;

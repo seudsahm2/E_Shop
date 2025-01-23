@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('css/admin/dashboard.css') }}">
 
+
 </head>
 
 <body>
@@ -23,7 +24,10 @@
         <div class="sidebar" id="sidebar">
             <h3 class="text-center">E_Shop Admin</h3>
             <a href="{{ route('admin.dashboard') }}"><i class="fas fa-home"></i> Dashboard</a>
-
+            <a href="{{ route('admin.products.index') }}"><i class="fas fa-box"></i> Products</a>
+            <a href="{{ route('admin.orders.index') }}"><i class="fas fa-shopping-cart"></i> Orders</a>
+            <a href="{{ route('admin.insights') }}"><i class="fas fa-chart-line"></i> Sales Insights</a>
+            <a href="{{ route('admin.users.index') }}"><i class="fas fa-users"></i> Users</a>
         </div>
 
         <div class="container-fluid p-4">

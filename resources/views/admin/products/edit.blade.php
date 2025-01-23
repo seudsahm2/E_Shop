@@ -18,6 +18,10 @@
             <input type="number" id="price" name="price" step="0.01" value="{{ $product->price }}" required>
         </div>
         <div>
+            <label for="cost">Cost:</label>
+            <input type="number" id="cost" name="cost" step="0.01" value="{{ $product->cost }}" required>
+        </div>
+        <div>
             <label for="quantity">Quantity:</label>
             <input type="number" id="quantity" name="quantity" value="{{ $product->quantity }}" required>
         </div>
