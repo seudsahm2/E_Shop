@@ -161,13 +161,6 @@
             var formData = new FormData(form);
 
             var actionurl = form.getAttribute('action');
-            // console.log(form);
-            // foreach(formData as value => data) {
-            //     console.log(value, " ", data);
-            //     console.log(formData.get('quantity'));
-            // }
-
-            // console.log(actionurl);
 
             var xhr = new XMLHttpRequest();
             xhr.open('POST', actionurl, true);
@@ -176,22 +169,54 @@
                 document.querySelector('meta[name="csrf-token"]').getAttribute('content')
             );
 
-
             xhr.onreadystatechange = function() {
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     var response = JSON.parse(xhr.responseText);
 
-                    if (response.message) {
-                        alert(response.message);
+                    if (response.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Added to cart',
+                            text: response.message,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        updateCartItemCount();
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: response.message,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
                     }
                 } else if (xhr.readyState == 4) {
-                    alert("failed to add product to cart");
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Failed to add product to cart',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
                 }
-
             };
             xhr.send(formData);
+        });
 
-        })
+        function updateCartItemCount() {
+            fetch('/cart/count')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.count >= 0) {
+                        document.querySelector('.cart-item-count').textContent = data.count;
+                        document.querySelector('.cart-nav span').textContent = `(${data.count})`;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching cart item count:', error);
+                });
+        }
     </script>
 </body>
 

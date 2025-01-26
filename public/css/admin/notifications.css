@@ -1,8 +1,8 @@
 /* Global Styles */
 body {
-    background-color: #f4f7fc;
-    font-family: "Arial", sans-serif;
-    color: #333;
+    background-color: #000000; /* Deep black for a modern aesthetic */
+    font-family: "Poppins", sans-serif;
+    color: #f7f7f7; /* Light text for excellent contrast */
     margin: 0;
     padding: 0;
 }
@@ -15,85 +15,163 @@ body {
 
 h2 {
     text-align: center;
-    font-size: 2rem;
-    color: #333;
+    font-size: 3rem;
+    font-weight: bold;
+    color: #ffdd00; /* Vibrant yellow for headings */
+    margin-bottom: 40px;
+    text-shadow: 2px 2px 8px rgba(255, 221, 0, 0.7); /* Glow effect */
 }
 
 /* Notifications List Section */
 .notifications-list {
-    margin-top: 30px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
+/* Notification Card */
 .notification-card {
-    background-color: #fff;
+    background: linear-gradient(135deg, #1a1a1a, #333333); /* Stylish gradient */
+    border: 2px solid #ffdd00; /* Bold yellow border */
+    border-radius: 16px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5); /* Dramatic shadow */
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    transition: background-color 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    overflow: hidden;
 }
 
 .notification-card:hover {
-    background-color: #ffcc00;
+    transform: scale(1.03); /* Slight zoom on hover */
+    box-shadow: 0 25px 40px rgba(255, 221, 0, 0.5); /* Yellow glow */
+    border-color: #ffe600; /* Brighter yellow border on hover */
 }
 
+/* Notification Header */
 .notification-header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
+    align-items: center;
+    width: 100%;
 }
 
 .notification-title {
-    font-size: 1.2rem;
+    font-size: 1.7rem;
     font-weight: bold;
-    color: #333;
+    color: #ffdd00; /* Vibrant yellow */
+    margin: 0;
+    text-shadow: 1px 1px 6px rgba(255, 221, 0, 0.8); /* Subtle glow effect */
 }
 
 .notification-time {
-    font-size: 0.9rem;
-    color: #777;
+    font-size: 1rem;
+    color: #bbbbbb; /* Subtle gray for timestamps */
+    text-align: right;
+    margin-top: 5px;
 }
 
+/* Notification Body */
 .notification-body {
-    font-size: 1rem;
-    color: #555;
-    margin-bottom: 20px;
+    margin-top: 15px;
+    font-size: 1.1rem;
+    color: #f7f7f7; /* Light text for readability */
+    line-height: 1.7;
 }
 
-.mark-read-btn {
-    padding: 10px 20px;
-    background-color: #ffcc00;
-    color: black;
+.notification-body span {
+    font-weight: bold;
+    color: #ffdd00; /* Highlight key text with yellow */
+}
+
+/* Notification Link */
+.notification-link {
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    color: inherit;
+    transition: background-color 0.3s ease, border-radius 0.3s ease;
+}
+
+.notification-link:hover {
+    background-color: #111111; /* Subtle black highlight */
+    border-radius: 12px;
+    padding: 10px;
+}
+
+/* Mark as Read Button */
+.mark-as-read {
+    padding: 12px 20px;
+    background-color: #ffdd00; /* Vibrant yellow */
+    color: #000000; /* Black text for contrast */
     border: none;
-    border-radius: 5px;
+    border-radius: 12px;
     font-size: 1rem;
+    font-weight: bold;
     cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 5px 15px rgba(255, 221, 0, 0.4); /* Glow effect */
 }
 
-.mark-read-btn:hover {
-    background-color: #ff9900;
+.mark-as-read:hover {
+    background-color: #ffe600; /* Brighter yellow */
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 221, 0, 0.7); /* More glow */
+}
+
+.mark-as-read:active {
+    transform: translateY(1px);
+    box-shadow: 0 4px 10px rgba(255, 221, 0, 0.6);
 }
 
 /* Responsive Styles */
 @media (max-width: 768px) {
-    .notifications-list {
-        padding: 10px;
-    }
-
     .notification-card {
+        flex-direction: column;
+        align-items: flex-start;
         padding: 15px;
     }
 
+    .notification-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
     .notification-title {
-        font-size: 1rem;
+        font-size: 1.5rem;
     }
 
-    .notification-body {
+    .notification-time {
+        margin-top: 5px;
         font-size: 0.9rem;
     }
 
-    .mark-read-btn {
+    .mark-as-read {
         font-size: 0.9rem;
-        padding: 8px 16px;
+        margin-top: 10px;
+        align-self: flex-end;
     }
+}
+
+#no-notifications-message {
+    font-size: 1.5rem; /* Make the text prominent */
+    font-weight: bold; /* Emphasize the message */
+    color: #ffdd00; /* Vibrant yellow for consistency */
+    text-align: center; /* Center the text */
+    margin-top: 20px; /* Add some spacing above */
+    padding: 10px 20px; /* Add padding for balance */
+    background-color: #1a1a1a; /* Subtle black background */
+    border: 2px dashed #ffdd00; /* Stylish dashed yellow border */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 5px 15px rgba(255, 221, 0, 0.4); /* Subtle glow effect */
+    text-shadow: 1px 1px 4px rgba(255, 221, 0, 0.8); /* Yellow text glow */
+    transition: transform 0.3s ease, background-color 0.3s ease; /* Smooth transitions */
+}
+
+#no-notifications-message:hover {
+    background-color: #333333; /* Slightly lighter black on hover */
+    transform: scale(1.05); /* Slight zoom effect */
+    box-shadow: 0 8px 20px rgba(255, 221, 0, 0.7); /* Enhanced glow on hover */
 }

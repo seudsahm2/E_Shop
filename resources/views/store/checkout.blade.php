@@ -59,7 +59,7 @@
                             <div class="cart-title">
                                 <h2>Checkout</h2>
                             </div>
-                            <form action="{{ route('checkout.process')}}" method="post">
+                            <form id="checkout-form" action="{{ route('checkout.process')}}" method="post">
                                 @csrf
                                 <div class="row">
                                     <!-- First Name -->
@@ -215,6 +215,20 @@
         $(document).ready(function() {
             $('.nice-select').hide();
             $('#country').select2();
+        });
+    </script>
+    <script>
+        document.getElementById('checkout-form').addEventListener('submit', function(event) {
+            console.log('Form submitted');
+            console.log('First Name:', document.getElementById('first_name').value);
+            console.log('Last Name:', document.getElementById('last_name').value);
+            console.log('Email:', document.getElementById('email').value);
+            console.log('Address:', document.getElementById('street_address').value);
+            console.log('City:', document.getElementById('city').value);
+            console.log('Zip Code:', document.getElementById('zipCode').value);
+            console.log('Phone:', document.getElementById('phone_number').value);
+            var paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
+            console.log('Payment Method:', paymentMethod);
         });
     </script>
 </body>
