@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\InsightController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\NotificationController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,12 +31,13 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::resource('orders', OrderController::class);
     Route::resource('users', UserController::class);
     Route::put('orders/{order}/update-status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
-
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
-
     Route::get('/insights', [InsightController::class, 'index'])->name('insights');
-
+    Route::view('/notifications', 'admin.notifications')->name('notifications');
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+    Route::get('/notifications/fetch', [NotificationController::class, 'fetchNotifications'])->name('notifications.fetch');
+    Route::post('/notifications/{id}/read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
+    Route::get('/notifications/count', [NotificationController::class, 'countUnread'])->name('notifications.count');
     // Management Routes
     Route::prefix('management')->name('management.')->group(function () {
         Route::get('/', [ManagementController::class, 'index'])->name('index');
@@ -57,7 +59,7 @@ Route::prefix('cart')->name('cart.')->group(function () {
     Route::get('/', [CartController::class, 'viewCart'])->name('view');
     Route::post('add/{id}', [CartController::class, 'add'])->name('add');
     Route::post('update/{id}', [CartController::class, 'updateQuantity'])->name('updateQuantity');
-    Route::get('remove/{id}', [CartController::class, 'removeItem'])->name('remove');
+    Route::delete('remove/{id}', [CartController::class, 'removeItem'])->name('remove');
     Route::post('clear', [CartController::class, 'clearCart'])->name('clear');
 });
 
@@ -75,17 +77,17 @@ Route::middleware('auth')->group(function () {
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
 
 // API Routes
-// Route::prefix('api')->group(function () {
-//     // Mpesa Payment Routes
-//     Route::prefix('c2b')->group(function () {
-//         Route::post('/validation', [MpesaController::class, 'validateTransaction']);
-//         Route::post('/confirmation', [MpesaController::class, 'confirmTransaction']);
-//         Route::post('/simulate-payment', [MpesaController::class, 'simulatePayment'])->name('api.simulatePayment');
-//     });
-//     Route::get('/csrf-token', function () {
-//         return response()->json(['csrf_token' => csrf_token()]);
-//     });
-// });
+Route::prefix('api')->group(function () {
+    // Mpesa Payment Routes
+    Route::prefix('c2b')->group(function () {
+        Route::post('/validation', [MpesaController::class, 'validateTransaction']);
+        Route::post('/confirmation', [MpesaController::class, 'confirmTransaction']);
+        Route::post('/simulate-payment', [MpesaController::class, 'simulatePayment'])->name('api.simulatePayment');
+    });
+    Route::get('/csrf-token', function () {
+        return response()->json(['csrf_token' => csrf_token()]);
+    });
+});
 
 
 // Route to display the access token form

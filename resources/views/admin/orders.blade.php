@@ -42,9 +42,7 @@
                         </form>
                     </td>
                     <td>
-                        <button class="btn view-btn" onclick="viewOrder({{ $order->id }})">
-                            View
-                        </button>
+                        <a href="{{ url('admin/orders/' . $order->id) }}" class="btn btn-success">View</a>
                         <a href="{{ route('admin.orders.edit', $order->id) }}" class="btn btn-warning btn-sm">Edit</a>
                         <form action="{{ route('admin.orders.destroy', $order->id) }}" method="POST" style="display:inline-block;">
                             @csrf
@@ -134,10 +132,5 @@
             dropdown.className = 'status-dropdown ' + dropdown.value.toLowerCase();
         });
     });
-
-    function viewOrder(orderId) {
-        // Implement the view order functionality here
-        alert('Viewing order ' + orderId);
-    }
 </script>
 @endsection

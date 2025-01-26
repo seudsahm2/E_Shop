@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use App\Events\OrderPlaced;
+use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
 {
@@ -33,5 +35,10 @@ class OrderController extends Controller
             'deliveredOrders' => $deliveredOrders,
             'canceledOrders' => $canceledOrders,
         ]);
+    }
+    public function show($id)
+    {
+        $order = Order::with('user', 'items.product')->findOrFail($id);
+        return view('admin.order', compact('order'));
     }
 }
