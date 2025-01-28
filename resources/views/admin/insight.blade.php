@@ -32,16 +32,7 @@
             </div>
         </div>
     </section>
-    <!-- Sales Graph Section -->
-    <section class="sales-graph-section mt-4">
-        <h3>Sales Over Time</h3>
-        <div id="sales-graph" class="sales-graph">
-            <p>This is where the sales graph would be displayed.</p>
-            <button class="btn refresh-btn" onclick="refreshGraph()">
-                Refresh Graph
-            </button>
-        </div>
-    </section>
+
     <section>
         <table class="table table-striped mt-4">
             <thead>

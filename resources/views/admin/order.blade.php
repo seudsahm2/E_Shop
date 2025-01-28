@@ -8,7 +8,17 @@
     <!-- Header Section -->
     <div class="order-header">
         <h2 class="page-title">Order Details</h2>
-        <span class="order-status {{ strtolower($order->status) }}">{{ ucfirst($order->status) }}</span>
+        <form action="{{ route('admin.orders.updateStatus', $order->id) }}" method="POST" class="status-form">
+            @csrf
+            @method('PUT')
+            <label for="status">Status:</label>
+            <select name="status" class="status-dropdown {{ strtolower($order->status) }}" data-order-id="{{ $order->id }}">
+                <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>Pending</option>
+                <option value="shipped" {{ $order->status == 'shipped' ? 'selected' : '' }}>Shipped</option>
+                <option value="delivered" {{ $order->status == 'delivered' ? 'selected' : '' }}>Delivered</option>
+                <option value="canceled" {{ $order->status == 'canceled' ? 'selected' : '' }}>Canceled</option>
+            </select>
+        </form>
     </div>
 
     <!-- Order Summary Section -->
@@ -40,4 +50,43 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelector('.status-dropdown').addEventListener('change', function() {
+            var form = this.closest('form');
+            var orderId = this.getAttribute('data-order-id');
+            var formData = new FormData(form);
+
+            fetch(form.action, {
+                    method: form.method,
+                    headers: {
+                        'X-CSRF-TOKEN': formData.get('_token'),
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Order status updated successfully.');
+
+                        // Update the dropdown class based on the selected value
+                        this.className = 'status-dropdown ' + this.value.toLowerCase();
+                    } else {
+                        alert('An error occurred: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while updating the order status.');
+                });
+        });
+
+        // Set the initial class based on the selected value
+        document.querySelector('.status-dropdown').className = 'status-dropdown ' + document.querySelector('.status-dropdown').value.toLowerCase();
+    });
+</script>
 @endsection

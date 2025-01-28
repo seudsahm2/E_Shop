@@ -10,9 +10,42 @@ use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $orders = Order::with('user')->get();
+        $query = Order::query();
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        if ($request->filled('min_price')) {
+            $query->where('total', '>=', $request->min_price);
+        }
+
+        if ($request->filled('max_price')) {
+            $query->where('total', '<=', $request->max_price);
+        }
+
+        if ($request->filled('min_quantity') || $request->filled('max_quantity')) {
+            $query->whereHas('items', function ($q) use ($request) {
+                if ($request->filled('min_quantity')) {
+                    $q->havingRaw('SUM(quantity) >= ?', [$request->min_quantity]);
+                }
+                if ($request->filled('max_quantity')) {
+                    $q->havingRaw('SUM(quantity) <= ?', [$request->max_quantity]);
+                }
+            });
+        }
+        if ($request->filled('start_date')) {
+            $query->whereDate('created_at', '>=', $request->start_date);
+        }
+
+        if ($request->filled('end_date')) {
+            $query->whereDate('created_at', '<=', $request->end_date);
+        }
+
+        $orders = $query->get();
+
         return view('admin.orders', compact('orders'));
     }
 
@@ -26,6 +59,39 @@ class OrderController extends Controller
         $shippedOrders = Order::where('status', 'shipped')->count();
         $deliveredOrders = Order::where('status', 'delivered')->count();
         $canceledOrders = Order::where('status', 'canceled')->count();
+
+        // Recalculate the order count based on the current filter criteria
+        $query = Order::query();
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        if ($request->filled('min_price')) {
+            $query->where('total', '>=', $request->min_price);
+        }
+
+        if ($request->filled('max_price')) {
+            $query->where('total', '<=', $request->max_price);
+        }
+
+        if ($request->filled('min_quantity') || $request->filled('max_quantity')) {
+            $query->whereHas('items', function ($q) use ($request) {
+                if ($request->filled('min_quantity')) {
+                    $q->havingRaw('SUM(quantity) >= ?', [$request->min_quantity]);
+                }
+                if ($request->filled('max_quantity')) {
+                    $q->havingRaw('SUM(quantity) <= ?', [$request->max_quantity]);
+                }
+            });
+        }
+        if ($request->filled('start_date')) {
+            $query->whereDate('created_at', '>=', $request->start_date);
+        }
+
+        if ($request->filled('end_date')) {
+            $query->whereDate('created_at', '<=', $request->end_date);
+        }
 
         return response()->json([
             'success' => true,

@@ -115,6 +115,7 @@ class ProductController extends Controller
             'category_id' => $request->category_id,
             'brand_id' => $request->brand_id,
         ]);
+        $product->updateQuantity($request->quantity);
 
         // Sync colors
         $product->colors()->sync($request->colors);

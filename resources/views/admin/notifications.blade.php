@@ -10,11 +10,30 @@
         <h2>Notifications</h2>
     </header>
 
-    <!-- Notification List Section -->
-    <section class="notifications-list" id="notifications-list">
-        <!-- Notifications will be appended here by JavaScript -->
-    </section>
-    <p id="no-notifications-message" style="display: none;">No notifications found.</p>
+    <body>
+        <div class="loading-wrapper">
+            <div class="loading-container">
+                <div class="morphing-circle morphing-1"></div>
+                <div class="morphing-circle morphing-2"></div>
+                <div class="morphing-circle morphing-3"></div>
+                <div class="center-light"></div> <!-- Pulsating center light -->
+                <div class="particles-container">
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                </div>
+                <div class="loading-text">Loading...</div> <!-- Animated text -->
+            </div>
+        </div>
+
+        <!-- Notification List Section -->
+        <section class="notifications-list" id="notifications-list">
+            <!-- Notifications will be appended here by JavaScript -->
+        </section>
+        <p id="no-notifications-message" style="display: none;">No notifications found.</p>
 </div>
 @endsection
 
@@ -78,7 +97,7 @@
         addLowStockNotification(data.product.id, data.product.name, data.product.quantity);
     });
 
-    function addLowStockNotification(productId, productName, quantity) {
+    function addLowStockNotification(notificationId, productId, productName, quantity) {
         var notificationList = document.getElementById('notifications-list');
         var notificationCard = document.createElement('div');
         notificationCard.className = 'notification-card';
@@ -93,11 +112,10 @@
                 Remaining Quantity: ${quantity}
             </div>
         </a>
-        <button class="mark-as-read" data-id="${productId}">Mark as Read</button>
+        <button class="mark-as-read" data-id="${notificationId}">Mark as Read</button>
     `;
         notificationList.prepend(notificationCard);
     }
-
 
     document.addEventListener('click', function(event) {
         if (event.target.classList.contains('mark-as-read')) {
@@ -105,7 +123,7 @@
             console.log("notification id", notificationId);
 
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', `http://eshop.local/admin/notifications/${notificationId}/read`, true);
+            xhr.open('POST', `/admin/notifications/${notificationId}/read`, true);
             xhr.setRequestHeader('Content-Type', 'application/json');
             xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
 
@@ -124,33 +142,44 @@
         }
     });
 
-    fetch('/admin/notifications/fetch')
-        .then(response => response.json())
-        .then(notifications => {
-            if (notifications.length === 0) {
-                document.getElementById('no-notifications-message').style.display = 'block';
-            } else {
-                document.getElementById('no-notifications-message').style.display = 'none';
-                notifications.forEach(notification => {
-                    // Dynamically determine the method to call based on the notification data structure
-                    if (notification.order) {
-                        const fullName = notification.order.user.first_name + " " + notification.order.user.last_name;
-                        addNotification(notification.id, notification.order.id, notification.order.total, fullName);
-                    }
+    function showLoadingSpinner() {
+        document.querySelector('.loading-wrapper').style.display = 'flex';
+    }
 
-                    if (notification.product) {
-                        addLowStockNotification(notification.product.id, notification.product.name, notification.product.quantity);
-                    }
+    function hideLoadingSpinner() {
+        document.querySelector('.loading-wrapper').style.display = 'none';
+    }
 
-                    // If there are additional types of notifications, handle them here as well
-                });
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching notifications:', error);
-        });
+    function fetchNotifications() {
+        showLoadingSpinner();
+        fetch('/admin/notifications/fetch')
+            .then(response => response.json())
+            .then(notifications => {
+                hideLoadingSpinner();
+                if (notifications.length === 0) {
+                    document.getElementById('no-notifications-message').style.display = 'block';
+                } else {
+                    document.getElementById('no-notifications-message').style.display = 'none';
+                    notifications.forEach(notification => {
+                        // Dynamically determine the method to call based on the notification data structure
+                        if (notification.order) {
+                            const fullName = notification.order.user.first_name + " " + notification.order.user.last_name;
+                            addNotification(notification.id, notification.order.id, notification.order.total, fullName);
+                        }
 
+                        if (notification.product) {
+                            addLowStockNotification(notification.id, notification.product.id, notification.product.name, notification.product.quantity);
+                        }
 
+                        // If there are additional types of notifications, handle them here as well
+                    });
+                }
+            })
+            .catch(error => {
+                hideLoadingSpinner();
+                console.error('Error fetching notifications:', error);
+            });
+    }
 
     function checkNotifications() {
         var notificationList = document.getElementById('notifications-list');
@@ -160,5 +189,6 @@
             document.getElementById('no-notifications-message').style.display = 'none';
         }
     }
+    fetchNotifications();
 </script>
 @endsection

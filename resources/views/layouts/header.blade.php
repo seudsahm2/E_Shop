@@ -32,6 +32,7 @@
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ms-6 w-full">
+                @auth
                 <x-dropdown align="right" width="32">
                     <x-slot name="trigger">
                         <button class="flex items-center px-2 py-1 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
@@ -60,6 +61,12 @@
                         </form>
                     </x-slot>
                 </x-dropdown>
+                @endauth
+
+                @guest
+                <!-- Login Link -->
+                <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
+                @endguest
             </div>
 
 
