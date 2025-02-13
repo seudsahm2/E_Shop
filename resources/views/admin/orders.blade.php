@@ -1,13 +1,57 @@
-<!-- filepath: /C:/xampp/htdocs/E_Shop/resources/views/admin/orders.blade.php -->
 @extends('layouts.admin')
+@section('title', 'Admin - Manage Orders')
 <link rel="stylesheet" href="{{ asset('css/admin/order_style.css') }}">
-@section('title', 'Admin - Orders')
-
 @section('content')
 <div class="container">
     <header class="page-header">
         <h2>Order Management</h2>
     </header>
+
+    <!-- Filter Button -->
+    <button id="toggle-filter" class="btn btn-secondary mb-3">Filter</button>
+
+    <!-- Filter Form -->
+    <div class="filter-form" style="display: none;">
+        <form action="{{ route('admin.orders.index') }}" method="GET" class="form-inline">
+            <div class="form-group">
+                <label for="status">Status:</label>
+                <select name="status" id="status" class="form-control">
+                    <option value="">All</option>
+                    <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
+                    <option value="shipped" {{ request('status') == 'shipped' ? 'selected' : '' }}>Shipped</option>
+                    <option value="delivered" {{ request('status') == 'delivered' ? 'selected' : '' }}>Delivered</option>
+                    <option value="canceled" {{ request('status') == 'canceled' ? 'selected' : '' }}>Canceled</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="min_price">Min Price:</label>
+                <input type="number" name="min_price" id="min_price" class="form-control" value="{{ request('min_price') }}">
+            </div>
+            <div class="form-group">
+                <label for="max_price">Max Price:</label>
+                <input type="number" name="max_price" id="max_price" class="form-control" value="{{ request('max_price') }}">
+            </div>
+            <div class="form-group">
+                <label for="min_quantity">Min Quantity:</label>
+                <input type="number" name="min_quantity" id="min_quantity" class="form-control" value="{{ request('min_quantity') }}">
+            </div>
+            <div class="form-group">
+                <label for="max_quantity">Max Quantity:</label>
+                <input type="number" name="max_quantity" id="max_quantity" class="form-control" value="{{ request('max_quantity') }}">
+            </div>
+            <div class="form-group">
+                <label for="start_date">Start Date:</label>
+                <input type="date" name="start_date" id="start_date" class="form-control" value="{{ request('start_date') }}">
+            </div>
+            <div class="form-group">
+                <label for="end_date">End Date:</label>
+                <input type="date" name="end_date" id="end_date" class="form-control" value="{{ request('end_date') }}">
+            </div>
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </form>
+    </div>
+
+
 
     <!-- Orders Table Section -->
     <section class="orders-table-section">
@@ -24,7 +68,7 @@
             </thead>
             <tbody>
                 @foreach($orders as $order)
-                <tr>
+                <tr id="order-{{ $order->id }}">
                     <td>#{{ $order->id }}</td>
                     <td>{{ $order->user->first_name }} {{ $order->user->last_name }}</td>
                     <td>{{ $order->created_at->format('Y-m-d') }}</td>
@@ -43,12 +87,7 @@
                     </td>
                     <td>
                         <a href="{{ url('admin/orders/' . $order->id) }}" class="btn btn-success">View</a>
-                        <a href="{{ route('admin.orders.edit', $order->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                        <form action="{{ route('admin.orders.destroy', $order->id) }}" method="POST" style="display:inline-block;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                        </form>
+
                     </td>
                 </tr>
                 @endforeach
@@ -111,6 +150,8 @@
                     .then(data => {
                         if (data.success) {
                             alert('Order status updated successfully.');
+                            document.getElementById(`order-${orderId}`).remove();
+
                             document.getElementById('total-orders').textContent = data.totalOrders;
                             document.getElementById('shipped-orders').textContent = data.shippedOrders;
                             document.getElementById('delivered-orders').textContent = data.deliveredOrders;
@@ -131,6 +172,16 @@
             // Set the initial class based on the selected value
             dropdown.className = 'status-dropdown ' + dropdown.value.toLowerCase();
         });
+    });
+</script>
+<script>
+    document.getElementById('toggle-filter').addEventListener('click', function() {
+        var filterForm = document.querySelector('.filter-form');
+        if (filterForm.style.display === 'none') {
+            filterForm.style.display = 'block';
+        } else {
+            filterForm.style.display = 'none';
+        }
     });
 </script>
 @endsection

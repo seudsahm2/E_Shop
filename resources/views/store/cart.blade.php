@@ -56,7 +56,7 @@
 
         <div class="cart-table-area section-padding-100">
             <div class="container-fluid">
-                @if($cart->items->isEmpty())
+                @if(is_null($cart) || $cart->items->isEmpty())
                 <div class="alert alert-info">
                     No items available in the cart.
                 </div>

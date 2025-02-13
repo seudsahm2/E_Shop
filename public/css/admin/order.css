@@ -34,27 +34,45 @@ body {
     color: #FFD700; /* Title remains yellow */
 }
 
-.order-status {
-    padding: 5px 15px;
-    font-size: 1rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    border-radius: 20px;
+.status-dropdown {
+    padding: 5px;
+    padding-right: 25px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    font-size: 14px;
+    color: #333;
+    width: 100%;
+    max-width: 150px;
+    margin: 0 auto;
+    display: block;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23333" d="M2 0L0 2h4zM2 5L0 3h4z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 10px;
 }
 
-.order-status.pending {
-    background-color: #FFAA00;
-    color: #121212; /* Dark text for readability */
+.status-dropdown.pending {
+    background-color: #ffeb3b;
+    color: #333;
 }
 
-.order-status.completed {
-    background-color: #28A745;
-    color: #F5F5F5; /* Light text for contrast */
+.status-dropdown.shipped {
+    background-color: #4caf50;
+    color: #fff;
 }
 
-.order-status.cancelled {
-    background-color: #DC3545;
-    color: #F5F5F5; /* Light text for contrast */
+.status-dropdown.delivered {
+    background-color: #2196f3;
+    color: #fff;
+}
+
+.status-dropdown.canceled {
+    background-color: #f44336;
+    color: #fff;
 }
 
 /* Order Info Section */

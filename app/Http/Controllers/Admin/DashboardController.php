@@ -46,10 +46,11 @@ class DashboardController extends Controller
 
         // Fetch pie chart data with product names
         $pieData = OrderItem::join('products', 'order_items.product_id', '=', 'products.id')
+            ->join('categories', 'products.category_id', '=', 'categories.id')
             ->select(
-                'products.name as product',
+                'categories.name as category',
                 DB::raw('SUM(order_items.quantity) as total')
-            )->groupBy('products.name')->get()->pluck('total', 'product')->toArray();
+            )->groupBy('categories.name')->get()->pluck('total', 'category')->toArray();
 
         $pieChartData = [
             'labels' => array_keys($pieData) ?: ['No Data'],

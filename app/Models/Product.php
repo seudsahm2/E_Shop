@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Events\LowStockNotification;
+use App\Models\Notification;
 
 class Product extends Model
 {
@@ -33,5 +35,19 @@ class Product extends Model
     public function colors()
     {
         return $this->belongsToMany(Color::class);
+    }
+
+    public function updateQuantity($quantity)
+    {
+        $this->quantity = $quantity;
+        $this->save();
+
+        if ($this->quantity < 3) {
+            event(new LowStockNotification($this));
+        } else {
+            Notification::where('product_id', $this->id)
+                ->where('type', 'low_stock')
+                ->update(['is_read' => true]);
+        }
     }
 }

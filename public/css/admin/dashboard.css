@@ -29,10 +29,20 @@ body {
 }
 
 
+/* Add this to dashboard.css */
 .container-fluid {
-  margin-left: 250px; /* Ensure the main content has space for the sidebar on larger screens */
-  padding-left: 15px;
+  position: relative;
+  margin-left: 250px; /* Match sidebar width */
+  width: calc(100% - 250px); /* Account for sidebar */
+  min-height: 100vh;
   transition: margin-left 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .container-fluid {
+      margin-left: 0;
+      width: 100%;
+  }
 }
 
 .sidebar a {

@@ -19,7 +19,10 @@ class ManagementController extends Controller
         return view('admin.management.index', compact('categories', 'brands', 'colors'));
     }
 
-
+    public function create()
+    {
+        return view('admin.management.create');
+    }
 
 
     public function store(Request $request)

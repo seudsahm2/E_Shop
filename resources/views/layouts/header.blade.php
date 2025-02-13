@@ -32,6 +32,7 @@
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ms-6 w-full">
+                @auth
                 <x-dropdown align="right" width="32">
                     <x-slot name="trigger">
                         <button class="flex items-center px-2 py-1 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
@@ -60,6 +61,12 @@
                         </form>
                     </x-slot>
                 </x-dropdown>
+                @endauth
+
+                @guest
+                <!-- Login Link -->
+                <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
+                @endguest
             </div>
 
 
@@ -69,32 +76,12 @@
                 <ul>
                     <li><a href="{{ url('/home') }}">Home</a></li>
                     <li class="active"><a href="{{ url('/shop') }}">Shop</a></li>
-                    <li><a href="{{ url('/product-detail') }}">Product</a></li>
                     <li><a href="{{ url('/cart') }}">Cart <span class="cart-item-count">{{ $cartItemCount }}</span></a></li>
                     <li><a href="{{ url('/checkout') }}">Checkout</a></li>
                 </ul>
             </nav>
 
-            <!-- Button Group -->
-            <div class="amado-btn-group mt-30 mb-100">
-                <a href="#" class="btn amado-btn mb-15">%Discount%</a>
-                <a href="#" class="btn amado-btn active">New this week</a>
-            </div>
 
-            <!-- Cart Menu -->
-            <div class="cart-fav-search mb-100">
-                <a href="{{ url('/cart') }}" class="cart-nav"><img src="{{ asset('img/core-img/cart.png') }}" alt=""> Cart <span>(0)</span></a>
-                <a href="#" class="fav-nav"><img src="{{ asset('img/core-img/favorites.png') }}" alt=""> Favourite</a>
-                <a href="#" class="search-nav"><img src="{{ asset('img/core-img/search.png') }}" alt=""> Search</a>
-            </div>
-
-            <!-- Social Button -->
-            <div class="social-info d-flex justify-content-between">
-                <a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-            </div>
         </header>
         <!-- Header Area End -->
 

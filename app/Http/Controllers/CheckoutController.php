@@ -13,6 +13,7 @@ use App\Models\OrderItem;
 use App\Models\Sale;
 use App\Events\OrderPlaced;
 use App\Events\LowStockNotification;
+use App\Models\Notification;
 
 class CheckoutController extends Controller
 {
@@ -97,6 +98,7 @@ class CheckoutController extends Controller
             ]);
 
             // Trigger the event
+            Log::info('Dispatching OrderPlaced event', ['order_id' => $order->id]);
             event(new OrderPlaced($order));
 
             foreach ($cart->items as $item) {
@@ -106,7 +108,13 @@ class CheckoutController extends Controller
 
                 if ($product->quantity < 3) {
                     // Trigger the LowStockNotification event
+                    Log::info('Dispatching LowStockNotification event', ['product_id' => $product->id]);
                     event(new LowStockNotification($product));
+                } else {
+                    // Mark the low stock notification as read or delete it if the quantity is above the threshold
+                    Notification::where('product_id', $product->id)
+                        ->where('type', 'low_stock')
+                        ->update(['is_read' => true]);
                 }
             }
 

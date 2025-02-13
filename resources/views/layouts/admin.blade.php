@@ -17,6 +17,7 @@
         <div class="sidebar" id="sidebar">
             <h3 class="text-center">E_Shop Admin</h3>
             <a href="{{ route('admin.dashboard') }}"><i class="fas fa-home"></i> Dashboard</a>
+            <a href="{{ route('admin.management.index') }}"><i class="fas fa-tools"></i> Management</a>
             <a href="{{ route('admin.products.index') }}"><i class="fas fa-box"></i> Products</a>
             <a href="{{ route('admin.orders.index') }}"><i class="fas fa-shopping-cart"></i> Orders</a>
             <a href="{{ route('admin.insights') }}"><i class="fas fa-chart-line"></i> Sales Insights</a>
