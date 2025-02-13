@@ -2,12 +2,12 @@
 
 namespace App\Events;
 
-use App\Models\Notification;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 class LowStockNotification implements ShouldBroadcastNow
 {
@@ -24,13 +24,7 @@ class LowStockNotification implements ShouldBroadcastNow
     public function __construct($product)
     {
         $this->product = $product;
-
-        // Save the notification to the database
-        Notification::create([
-            'product_id' => $product->id,
-            'type' => 'low_stock',
-            'is_read' => false,
-        ]);
+        Log::info('LowStockNotification event instantiated', ['product_id' => $product->id]);
     }
 
     /**

@@ -2,15 +2,12 @@
 
 namespace App\Events;
 
-use App\Models\Notification;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\ShouldBroadcast;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 class OrderPlaced implements ShouldBroadcastNow
 {
@@ -26,14 +23,7 @@ class OrderPlaced implements ShouldBroadcastNow
     public function __construct($order)
     {
         $this->order = $order;
-
-        // Store the notification in the database
-        Notification::create([
-            'order_id' => $order->id,
-            'type' => 'order',
-            'is_read' => false,
-        ]);
-
+        Log::info('OrderPlaced event instantiated', ['order_id' => $order->id]);
     }
 
     /**
